@@ -1,0 +1,16 @@
+# steps ---
+# travis -> need a copy of docker running
+# build image using Dockerfile.dev
+# travis -> run test suite
+# deploy code to AWS
+sudo: required
+services:
+  - docker
+
+before_install:
+  # command that should be executed to build Docker image
+  - docker build -t seatoiler/docker-web-lab -f Dockerfile.dev .
+
+script:
+  # -e CI=true -> omitting coverage flag (-- --coverage)
+  - docker run -e CI=true seatoiler/docker-web-lab npm run test
