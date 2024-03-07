@@ -1,21 +1,8 @@
 version: "3"
 services:
-  web-react-app:
-    build: 
-    # it isnt defaul t dockerfile, it has extension (.dev)
+  web:
+    build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    volumes:
-      - /home/node/app/node_modules
-      - .:/app
-  tests:
-    build: 
-    # it isnt defaul t dockerfile, it has extension (.dev)
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - /home/node/app/node_modules
-      - .:/app
-    command: ["npm", "run", "test"]
+      - "80:80"

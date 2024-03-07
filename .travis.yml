@@ -14,3 +14,18 @@ before_install:
 script:
   # -e CI=true -> omitting coverage flag (-- --coverage)
   - docker run -e CI=true seatoiler/docker-web-lab npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-north-1"
+  app: "frontend"
+  env: "Frontend-env"
+  bucket_name: "elasticbeanstalk-eu-north-1-905418172981"
+  # folder inside elasticbeanstalk is only going to be created, the first time deploy 
+  # so by default, the bucket path = app name
+  bucket_path: "frontend"
+  on:
+    branch: master
+  # travis will get keys from local env conf
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
